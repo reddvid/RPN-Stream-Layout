@@ -1,48 +1,92 @@
-﻿<Window x:Class="RPNStreamControl.Wpf.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RPNStreamControl.Wpf"
-        mc:Ignorable="d"    xmlns:ui="http://schemas.modernwpf.com/2019"
-        ui:WindowHelper.UseModernWindowStyle="True"
-        Title="Stream Editor by Red David" Height="450" Width="300">
-   
+﻿<Window
+	x:Class="RPNStreamControl.Wpf.MainWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="clr-namespace:RPNStreamControl.Wpf"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:ui="http://schemas.modernwpf.com/2019"
+	Title="Stream Editor by Red David"
+	Width="600"
+	Height="450"
+	ui:WindowHelper.UseModernWindowStyle="True"
+	mc:Ignorable="d">
+
 	<Grid Margin="12">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition/>
-			<RowDefinition Height="8"/>
-			<RowDefinition Height="Auto"/>
-		</Grid.RowDefinitions>
-		<Label Content="Title" FontWeight="Bold" />
-		<TextBox x:Name="tbxTitle" 
-				 Grid.Row="1"
-				 TextWrapping="Wrap"
-				 Loaded="TitleTextBox_Loaded"/>
-		<Label Content="Subtitle" 
-			   Grid.Row="2"
-			   Margin="0,8,0,0"
-			   FontWeight="Bold" />
-		<TextBox x:Name="tbxSubTitle" 
-				 Grid.Row="3"
-				 TextWrapping="Wrap"
-				 Loaded="SubtitleTextBox_Loaded"/>
-		<Label Content="Scroll"
-			   Margin="0,8,0,0"
-			   Grid.Row="4"
-			   FontWeight="Bold" />
-		<TextBox x:Name="tbxScroll" 
-				 Grid.Row="5" TextWrapping="Wrap"
-				 Loaded="ScrollTextBox_Loaded"/>
-		<Button Content="Update" 
-				VerticalAlignment="Bottom" 
-				Grid.Row="7" 
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+			<ColumnDefinition Width="12" />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition />
+				<RowDefinition Height="8" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+			<Label Content="Title" FontWeight="Bold" />
+			<TextBox
+				x:Name="tbxTitle"
+				Grid.Row="1"
+				Loaded="TitleTextBox_Loaded"
+				TextWrapping="Wrap" />
+			<Label
+				Grid.Row="2"
+				Margin="0,8,0,0"
+				Content="Subtitle"
+				FontWeight="Bold" />
+			<TextBox
+				x:Name="tbxSubTitle"
+				Grid.Row="3"
+				Loaded="SubtitleTextBox_Loaded"
+				TextWrapping="Wrap" />
+			<Label
+				Grid.Row="4"
+				Margin="0,8,0,0"
+				Content="Scroll"
+				FontWeight="Bold" />
+			<TextBox
+				x:Name="tbxScroll"
+				Grid.Row="5"
+				Loaded="ScrollTextBox_Loaded"
+				TextWrapping="Wrap" />
+			<Button
+				Grid.Row="7"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Bottom"
 				Click="UpdateFiles_Click"
-				HorizontalAlignment="Stretch"/>
+				Content="Update" />
+		</Grid>
+		<Grid Grid.Column="2">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition />
+				<RowDefinition Height="8" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+			<Label Content="Forex" FontWeight="Bold" />
+			<TextBox
+				x:Name="tbxForex"
+				Grid.Row="1"
+				MinHeight="140"
+				IsReadOnly="True"
+				TextWrapping="Wrap" />
+			<Button
+				x:Name="btnGetForex"
+				Grid.Row="2"
+				Margin="0,8"
+				HorizontalAlignment="Right"
+				Click="GetForex_Click"
+				Content="Get Foreign Exchange" />
+		</Grid>
 	</Grid>
 </Window>
