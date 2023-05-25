@@ -28,8 +28,9 @@
 				<RowDefinition />
 				<RowDefinition Height="8" />
 				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
 			</Grid.RowDefinitions>
-			<Label Content="Title" FontWeight="Bold" />
+			<Label Content="Program Title" FontWeight="Bold" />
 			<TextBox
 				x:Name="tbxTitle"
 				Grid.Row="1"
@@ -38,7 +39,7 @@
 			<Label
 				Grid.Row="2"
 				Margin="0,8,0,0"
-				Content="Subtitle"
+				Content="Anchor"
 				FontWeight="Bold" />
 			<TextBox
 				x:Name="tbxSubTitle"
@@ -61,6 +62,13 @@
 				VerticalAlignment="Bottom"
 				Click="UpdateFiles_Click"
 				Content="Update" />
+			<Button
+				x:Name="btnPreview"
+				Grid.Row="8"
+				Margin="0,8"
+				HorizontalAlignment="Stretch"
+				Click="Preview_Click"
+				Content="Preview" />
 		</Grid>
 		<Grid Grid.Column="2">
 			<Grid.RowDefinitions>

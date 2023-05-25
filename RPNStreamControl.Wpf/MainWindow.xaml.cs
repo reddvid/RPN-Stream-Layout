@@ -251,6 +251,10 @@ namespace RPNStreamControl.Wpf
 			public Rates Rates { get; set; }
 		}
 
-
+		private void Preview_Click(object sender, RoutedEventArgs e)
+		{
+			var preview = new TemplateWindow();
+			preview.Show();
+		}
 	}
 }

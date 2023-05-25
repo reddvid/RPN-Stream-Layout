@@ -8,8 +8,66 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Images\Logos\bacolod-logo.png" />
+    <None Remove="Assets\Images\Logos\baguio-logo.png" />
+    <None Remove="Assets\Images\Logos\batac-logo.png" />
+    <None Remove="Assets\Images\Logos\cdo-logo.png" />
+    <None Remove="Assets\Images\Logos\cebu-logo.png" />
+    <None Remove="Assets\Images\Logos\davao-logo.png" />
+    <None Remove="Assets\Images\Logos\dipolog-logo.png" />
+    <None Remove="Assets\Images\Logos\gensan-logo.png" />
+    <None Remove="Assets\Images\Logos\iriga-logo.png" />
+    <None Remove="Assets\Images\Logos\pagadian-logo.png" />
+    <None Remove="Assets\Images\Logos\surigao-logo.png" />
+    <None Remove="Assets\Images\Logos\zamboanga-logo.png" />
+    <None Remove="Assets\Images\radyo-ronda.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="ModernWpfUI" Version="0.9.6" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\Images\Logos\bacolod-logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\Logos\baguio-logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\Logos\batac-logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\Logos\cdo-logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\Logos\cebu-logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\Logos\davao-logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\Logos\dipolog-logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\Logos\gensan-logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\Logos\iriga-logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\Logos\pagadian-logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\Logos\surigao-logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\Logos\zamboanga-logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\radyo-ronda.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
