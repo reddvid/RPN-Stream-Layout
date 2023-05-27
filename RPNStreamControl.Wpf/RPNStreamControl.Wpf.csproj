@@ -22,6 +22,7 @@
     <None Remove="Assets\Images\Logos\surigao-logo.png" />
     <None Remove="Assets\Images\Logos\zamboanga-logo.png" />
     <None Remove="Assets\Images\radyo-ronda.png" />
+    <None Remove="Assets\Images\rpn-logo-white-bg.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -68,6 +69,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Images\radyo-ronda.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\rpn-logo-white-bg.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

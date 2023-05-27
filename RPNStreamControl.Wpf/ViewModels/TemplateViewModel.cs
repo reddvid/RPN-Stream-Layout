@@ -47,6 +47,15 @@ namespace RPNStreamControl.Wpf.ViewModels
 			set => SetProperty(ref _title, value);
 		}
 
+		private string _scroll;
+
+		public string Scroll
+		{
+			get => _scroll;
+			set => SetProperty(ref _scroll, value);
+		}
+
+
 		private string _anchor;
 
 		public string Anchor

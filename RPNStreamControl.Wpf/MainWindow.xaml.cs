@@ -110,14 +110,19 @@ namespace RPNStreamControl.Wpf
 
 		private void LoadText(string path, TextBox textbox)
 		{
-			if (!File.Exists(path)) return;
+			try
+			{
+				if (!File.Exists(path)) return;
 
-			// Read and Load saved text
-			textbox.Text = File.ReadAllText(path);
+				// Read and Load saved text
+				textbox.Text = File.ReadAllText(path);
 
-			TemplateViewModel.Title = tbxTitle.Text;
-			TemplateViewModel.Anchor = tbxSubTitle.Text;
-			TemplateViewModel.Hotlines = tbxHotlines.Text;
+				TemplateViewModel.Title = tbxTitle.Text;
+				TemplateViewModel.Anchor = tbxSubTitle.Text;
+				TemplateViewModel.Hotlines = tbxHotlines.Text;
+				TemplateViewModel.Scroll = tbxScroll.Text;
+			} catch {  }
+
 		}
 
 		private void UpdateFiles_Click(object sender, RoutedEventArgs e)
@@ -144,6 +149,7 @@ namespace RPNStreamControl.Wpf
 			TemplateViewModel.Title = tbxTitle.Text;
 			TemplateViewModel.Anchor = tbxSubTitle.Text;
 			TemplateViewModel.Hotlines = tbxHotlines.Text;
+			TemplateViewModel.Scroll = tbxScroll.Text;
 
 			UpdateFiles();
 		}

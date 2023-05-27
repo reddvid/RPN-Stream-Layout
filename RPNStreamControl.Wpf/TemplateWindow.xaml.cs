@@ -1,6 +1,8 @@
-﻿using RPNStreamControl.Wpf.ViewModels;
+﻿using RPNStreamControl.Wpf.Utils;
+using RPNStreamControl.Wpf.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -44,6 +46,8 @@ namespace RPNStreamControl.Wpf
 			string path = System.IO.Path.Combine(FILES_DIRECTORY, FILENAMES[3]);
 
 			LoadText(path, ScrollText);
+
+			CreateAnimation();
 		}
 
 		private void LoadText(string path, TextBlock textbox)
@@ -56,12 +60,33 @@ namespace RPNStreamControl.Wpf
 
 		private void Canvas_Loaded(object sender, RoutedEventArgs e)
 		{
+			CreateAnimation();
+		}
+
+		private void CreateAnimation()
+		{
+			Debug.WriteLine("Start debugging Ticker canvass: ");
+			Debug.WriteLine("ScrollText Actual Width: " + StackTicker.ActualWidth);
+			Debug.WriteLine("Canvas Actual Width: " + canMain.ActualWidth);
+			var newSpan = StackTicker.ActualWidth / 60;
+			var newTimeSpan = TimeSpan.FromSeconds(newSpan);
+			Debug.WriteLine("Timespan Seconds " + newTimeSpan);
 			DoubleAnimation doubleAnimation = new DoubleAnimation();
-			doubleAnimation.From = -ScrollText.ActualWidth;
+			doubleAnimation.From = -StackTicker.ActualWidth;
 			doubleAnimation.To = canMain.ActualWidth;
 			doubleAnimation.RepeatBehavior = RepeatBehavior.Forever;
-			doubleAnimation.Duration = new Duration(TimeSpan.Parse("0:0:10"));
-			ScrollText.BeginAnimation(Canvas.RightProperty, doubleAnimation);
+			doubleAnimation.Duration = new Duration(newTimeSpan);
+			StackTicker.BeginAnimation(Canvas.RightProperty, doubleAnimation);
+		}
+
+		private void ScrollText_SizeChanged(object sender, SizeChangedEventArgs e)
+		{
+			CreateAnimation();
+		}
+
+		private void canvas_SizeChanged(object sender, SizeChangedEventArgs e)
+		{
+			
 		}
 	}
 }

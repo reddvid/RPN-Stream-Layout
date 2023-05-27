@@ -59,7 +59,7 @@
 					Margin="-50,24,0,0" Visibility="{Binding Hotlines, Mode=OneWay, Converter={StaticResource TitleToVisibilityConverter}}" RenderTransformOrigin="0.5,0.5">
 					<Grid.RenderTransform>
 						<TranslateTransform x:Name="translateHotlinesGrid" />
-					</Grid.RenderTransform>					
+					</Grid.RenderTransform>
 					<Grid.Triggers>
 						<EventTrigger RoutedEvent="Binding.TargetUpdated">
 							<BeginStoryboard>
@@ -193,70 +193,75 @@
 					</TextBlock>
 				</Grid>
 
-				<!--  SCROLL TEXT GRID  -->
-				<Grid
+				<!--<Grid 
 					Grid.Row="2"
 					Grid.ColumnSpan="2"
-					Background="#DEDEDE"
+					Background="#F4F4F4"
 					ClipToBounds="True"
-					Visibility="Collapsed">
-					<Rectangle
-						Height="4"
-						VerticalAlignment="Top"
-						Fill="#D2D2D2" />
-					<TextBlock
-						x:Name="sScrollText"
-						Margin="12,4"
-						HorizontalAlignment="Left"
-						VerticalAlignment="Center"
-						FontFamily="Arial"
-						FontSize="16"
-						FontWeight="Bold"
-						Loaded="TextBlock_Loaded"
-						Text="HEHEHE">
-						<TextBlock.RenderTransform>
-							<TranslateTransform x:Name="translate" />
-						</TextBlock.RenderTransform>
-						<TextBlock.Triggers>
-							<EventTrigger RoutedEvent="FrameworkElement.Loaded">
-								<BeginStoryboard>
-									<Storyboard RepeatBehavior="Forever">
-										<DoubleAnimation
-											Storyboard.TargetName="translate"
-											Storyboard.TargetProperty="X"
-											From="0"
-											To="-900"
-											Duration="0:0:15" />
-									</Storyboard>
-								</BeginStoryboard>
+					Loaded="Canvas_Loaded">
+					<StackPanel Orientation="Horizontal" x:Name="stack">
+						<StackPanel.Resources>
+							<utils:DoubleNegationConverter x:Key="NegatingConverter" />
+							<Storyboard x:Key="slide">
+								<DoubleAnimation From="0" To="{Binding Width, ElementName=canvas, Converter={StaticResource NegatingConverter}}" Duration="00:00:30"
+                      Storyboard.TargetProperty="X" x:Name="myDoubleSlide"
+                      Storyboard.TargetName="transferCurreny"
+                      RepeatBehavior="Forever"/>
+							</Storyboard>
+						</StackPanel.Resources>
+						<StackPanel.RenderTransform>
+							<TranslateTransform x:Name="transferCurreny" X="0"/>
+						</StackPanel.RenderTransform>
+						<StackPanel.Triggers>
+							<EventTrigger RoutedEvent="StackPanel.Loaded">
+								<BeginStoryboard Storyboard="{StaticResource slide}" />
 							</EventTrigger>
-						</TextBlock.Triggers>
-					</TextBlock>
-				</Grid>
+							<EventTrigger RoutedEvent="StackPanel.SizeChanged">
+								<BeginStoryboard Storyboard="{StaticResource slide}" />
+							</EventTrigger>
+						</StackPanel.Triggers>
+						<Canvas x:Name="canvas" Width="{Binding ActualWidth, ElementName=stack}" SizeChanged="canvas_SizeChanged" Height="28">
+							<TextBlock x:Name="ScrollText"  Foreground="#171717"  Margin="12,4"
+									   FontFamily="Arial" TextWrapping="NoWrap"
+									   FontSize="16"
+									   FontWeight="SemiBold" Canvas.Left="0"/>
+							<TextBlock Text="{Binding Text, ElementName=ScrollText}"    Margin="12,4"
+									   FontFamily="Arial" TextWrapping="NoWrap"
+									   FontSize="16"  Foreground="#171717" 
+									   FontWeight="SemiBold" Canvas.Left="{Binding Width, ElementName=canvas}"/>
+						</Canvas>
+					</StackPanel>
+				</Grid>-->
 
-				<Canvas
+				<!--  SCROLL TEXT GRID  -->
+				<Canvas 
 					Grid.Row="2"
 					Grid.ColumnSpan="2"
-					Background="#DEDEDE"
+					Background="#F4F4F4"
 					ClipToBounds="True"
 					Loaded="Canvas_Loaded">
 					<Canvas
 						Name="canMain"
 						Width="990"
 						Height="28"
-						Margin="8,4,8,0"
+						Margin="8,8,8,0"
 						HorizontalAlignment="Stretch">
-						<TextBlock
-							x:Name="ScrollText"
-							Margin="12,4"
-							FontFamily="Arial"
-							FontSize="16"
-							FontWeight="Bold"
-							Loaded="TextBlock_Loaded"
-							Text="HEHEHE" />
+						<StackPanel Orientation="Horizontal" x:Name="StackTicker">
+							<Image Source="/RPNStreamControl.Wpf;component/Assets/Images/rpn-logo-white-bg.png" Height="24"/>
+							<TextBlock x:Name="ScrollText" 
+									   SizeChanged="ScrollText_SizeChanged"
+									   Margin="12,4"
+									   FontFamily="Arial" TextWrapping="NoWrap"
+									   FontSize="14"
+									   FontWeight="SemiBold"  Canvas.Left="0"
+									   Loaded="TextBlock_Loaded"
+									   Text="RPN TICKER" />
+						</StackPanel>
 					</Canvas>
 				</Canvas>
 
+				<Rectangle Fill="#691515" Height="6" VerticalAlignment="Top" Grid.Row="2"
+					Grid.ColumnSpan="2"/>
 			</Grid>
 
 			<!--  LOGO  -->
