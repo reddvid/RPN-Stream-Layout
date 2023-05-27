@@ -24,6 +24,7 @@ using System.Net.Http;
 using System.Diagnostics;
 using Newtonsoft.Json;
 using System.Globalization;
+using RPNStreamControl.Wpf.ViewModels;
 
 namespace RPNStreamControl.Wpf
 {
@@ -34,11 +35,17 @@ namespace RPNStreamControl.Wpf
 	{
 		readonly string FILES_DIRECTORY = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory), "StreamFiles");
 		readonly string[] FILENAMES = new string[4] { "datetime.txt", "title.txt", "subtitle.txt", "scroll.txt" };
+
+		public MainViewModel ViewModel { get; } = new MainViewModel();
+		public TemplateViewModel TemplateViewModel { get; } = new TemplateViewModel();
+
 		public MainWindow()
 		{
 			InitializeComponent();
 
 			Loaded += MainWindow_Loaded;
+
+			DataContext = ViewModel;
 		}
 
 		private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -47,6 +54,9 @@ namespace RPNStreamControl.Wpf
 			CreateTxtFilesAsync();
 
 			InitTimer();
+
+			var preview = new TemplateWindow(TemplateViewModel);
+			preview.Show();
 		}
 
 		private void InitTimer()
@@ -253,8 +263,8 @@ namespace RPNStreamControl.Wpf
 
 		private void Preview_Click(object sender, RoutedEventArgs e)
 		{
-			var preview = new TemplateWindow();
-			preview.Show();
+			TemplateViewModel.Title = tbxTitle.Text;
+			TemplateViewModel.Anchor = tbxSubTitle.Text;
 		}
 	}
 }

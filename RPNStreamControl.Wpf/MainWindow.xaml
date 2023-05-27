@@ -31,6 +31,8 @@
 				<RowDefinition Height="Auto" />
 			</Grid.RowDefinitions>
 			<Label Content="Program Title" FontWeight="Bold" />
+			
+			<Label Content="Program Title" FontWeight="Bold" />
 			<TextBox
 				x:Name="tbxTitle"
 				Grid.Row="1"

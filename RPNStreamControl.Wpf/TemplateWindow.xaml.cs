@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RPNStreamControl.Wpf.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -24,6 +25,15 @@ namespace RPNStreamControl.Wpf
 		readonly string FILES_DIRECTORY = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory), "StreamFiles");
 		readonly string[] FILENAMES = new string[4] { "datetime.txt", "title.txt", "subtitle.txt", "scroll.txt" };
 
+		public TemplateViewModel ViewModel { get; set; }
+
+		public TemplateWindow(TemplateViewModel viewModel) : this()
+		{
+			ViewModel = viewModel;
+
+			DataContext = ViewModel;
+		}
+		
 		public TemplateWindow()
 		{
 			InitializeComponent();

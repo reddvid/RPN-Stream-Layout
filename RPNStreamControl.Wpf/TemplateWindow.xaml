@@ -7,10 +7,15 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	Title="TemplateWindow"
 	Width="1280"
-	Height="752"
+	Height="752" xmlns:utils="clr-namespace:RPNStreamControl.Wpf.Utils"
 	Background="#3FFE0F"
 	ResizeMode="NoResize"
 	mc:Ignorable="d">
+
+	<Window.Resources>
+		<utils:TitleToVisibilityConverter x:Key="TitleToVisibilityConverter"/>
+	</Window.Resources>
+	
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="844*" />
@@ -51,8 +56,8 @@
 					Grid.Row="1"
 					Grid.Column="1"
 					Grid.ColumnSpan="2"
-					Margin="-40,24,0,0"
-					Background="#691515">
+					Margin="-40,24,0,0" Visibility="{Binding Hotlines, Converter={StaticResource TitleToVisibilityConverter}}"
+					Background="#691515">					
 					<TextBlock
 						Margin="36,4"
 						HorizontalAlignment="Left"
@@ -61,11 +66,11 @@
 						FontSize="12"
 						FontWeight="Bold"
 						Foreground="White"
-						Text="HOTLINES: 0900-12345678" />
+						Text="{Binding Hotlines, Mode=OneWay}" />
 				</Grid>
 
 				<!--  Grid Titles  -->
-				<Grid Grid.Row="1">
+				<Grid Grid.Row="1" MinWidth="600">
 					<Rectangle Fill="#0011AA">
 						<Rectangle.RenderTransform>
 							<SkewTransform AngleX="-24" />
@@ -76,18 +81,18 @@
 						Margin="24,4,120,4"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Center"
-						FontFamily="Arial"
-						FontSize="24"
+						FontFamily="Arial" MaxWidth="600"
+						FontSize="24" TextWrapping="NoWrap" TextTrimming="WordEllipsis"
 						FontWeight="Bold"
 						Foreground="White"
-						Text="RADYO RONDA MORNING EDITION"
-						TextAlignment="Center" />
+						Text="{Binding Title, Mode=OneWay}"
+						TextAlignment="Left" />
 				</Grid>
 
 				<!--  ANCHOR GRID  -->
 				<Grid
 					Margin="0,0,40,-34"
-					HorizontalAlignment="Right"
+					HorizontalAlignment="Right" Visibility="{Binding Anchor, Converter={StaticResource TitleToVisibilityConverter}}"
 					VerticalAlignment="Center">
 					<Rectangle Fill="White">
 						<Rectangle.RenderTransform>
@@ -103,7 +108,7 @@
 						FontSize="14"
 						FontWeight="Bold"
 						Foreground="#0011AA"
-						Text="ANCHOR: ROD SADIAN"
+						Text="{Binding Anchor, Mode=OneWay}"
 						TextAlignment="Center" />
 				</Grid>
 
