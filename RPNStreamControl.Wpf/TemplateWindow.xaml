@@ -56,7 +56,7 @@
 					Grid.Row="1"
 					Grid.Column="1"
 					Grid.ColumnSpan="2"
-					Margin="-40,24,0,0" Visibility="{Binding Hotlines, Converter={StaticResource TitleToVisibilityConverter}}"
+					Margin="-40,24,0,0" Visibility="{Binding Hotlines, Mode=OneWay, Converter={StaticResource TitleToVisibilityConverter}}"
 					Background="#691515">					
 					<TextBlock
 						Margin="36,4"
@@ -92,8 +92,8 @@
 				<!--  ANCHOR GRID  -->
 				<Grid
 					Margin="0,0,40,-34"
-					HorizontalAlignment="Right" Visibility="{Binding Anchor, Converter={StaticResource TitleToVisibilityConverter}}"
-					VerticalAlignment="Center">
+					HorizontalAlignment="Right" Visibility="{Binding Anchor, Mode=OneWay, Converter={StaticResource TitleToVisibilityConverter}}"
+					VerticalAlignment="Center" MinWidth="220">
 					<Rectangle Fill="White">
 						<Rectangle.RenderTransform>
 							<SkewTransform AngleX="24" />
@@ -102,7 +102,7 @@
 					<TextBlock
 						x:Name="TextAnchor"
 						Margin="48,4,30,4"
-						HorizontalAlignment="Right"
+						HorizontalAlignment="Center"
 						VerticalAlignment="Center"
 						FontFamily="Arial"
 						FontSize="14"
@@ -116,7 +116,7 @@
 				<Grid
 					Grid.Row="2"
 					Grid.ColumnSpan="2"
-					Background="White"
+					Background="#DEDEDE"
 					ClipToBounds="True"
 					Visibility="Collapsed">
 					<Rectangle
@@ -207,11 +207,11 @@
 						Margin="8"
 						HorizontalAlignment="Center"
 						VerticalAlignment="Center"
-						FontFamily="Arial"
+						FontFamily="Arial Monospaced"
 						FontSize="14"
 						FontWeight="Bold"
 						Foreground="White"
-						Text="JAN 5, 2023 10:45PM"
+						Text="{Binding DateTimeTitle, Mode=OneWay}"
 						TextAlignment="Center" />
 				</Grid>
 			</Grid>

@@ -63,14 +63,14 @@
 				HorizontalAlignment="Stretch"
 				VerticalAlignment="Bottom"
 				Click="UpdateFiles_Click"
-				Content="Update" />
+				Content="Update" Visibility="Collapsed" />
 			<Button
 				x:Name="btnPreview"
 				Grid.Row="8"
 				Margin="0,8"
 				HorizontalAlignment="Stretch"
 				Click="Preview_Click"
-				Content="Preview" />
+				Content="UPDATE" />
 		</Grid>
 		<Grid Grid.Column="2">
 			<Grid.RowDefinitions>

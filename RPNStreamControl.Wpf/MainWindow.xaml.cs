@@ -118,25 +118,7 @@ namespace RPNStreamControl.Wpf
 
 		private void UpdateFiles_Click(object sender, RoutedEventArgs e)
 		{
-			for (int i = 1; i < FILENAMES.Length; i++)
-			{
-				string path = System.IO.Path.Combine(FILES_DIRECTORY, FILENAMES[i]);
-
-				if (i == 1)
-				{
-					WriteToFile(path, tbxTitle.Text);
-				}
-
-				if (i == 2)
-				{
-					WriteToFile(path, tbxSubTitle.Text);
-				}
-
-				if (i == 3)
-				{
-					WriteToFile(path, tbxScroll.Text);
-				}
-			}
+			
 		}
 
 		private void TitleTextBox_Loaded(object sender, RoutedEventArgs e)
@@ -265,6 +247,31 @@ namespace RPNStreamControl.Wpf
 		{
 			TemplateViewModel.Title = tbxTitle.Text;
 			TemplateViewModel.Anchor = tbxSubTitle.Text;
+
+			UpdateFiles();
+		}
+
+		private void UpdateFiles()
+		{
+			for (int i = 1; i < FILENAMES.Length; i++)
+			{
+				string path = System.IO.Path.Combine(FILES_DIRECTORY, FILENAMES[i]);
+
+				if (i == 1)
+				{
+					WriteToFile(path, tbxTitle.Text);
+				}
+
+				if (i == 2)
+				{
+					WriteToFile(path, tbxSubTitle.Text);
+				}
+
+				if (i == 3)
+				{
+					WriteToFile(path, tbxScroll.Text);
+				}
+			}
 		}
 	}
 }
