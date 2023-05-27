@@ -15,7 +15,7 @@
 	<Window.Resources>
 		<utils:TitleToVisibilityConverter x:Key="TitleToVisibilityConverter"/>
 	</Window.Resources>
-	
+
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="844*" />
@@ -54,19 +54,53 @@
 				<Grid
 					x:Name="GridHotlines"
 					Grid.Row="1"
-					Grid.Column="1"
-					Grid.ColumnSpan="2"
-					Margin="-40,24,0,0" Visibility="{Binding Hotlines, Mode=OneWay, Converter={StaticResource TitleToVisibilityConverter}}"
-					Background="#691515">					
+					Grid.Column="2" HorizontalAlignment="Left"
+					Grid.ColumnSpan="2" MaxWidth="360" ClipToBounds="True"
+					Margin="-50,24,0,0" Visibility="{Binding Hotlines, Mode=OneWay, Converter={StaticResource TitleToVisibilityConverter}}" RenderTransformOrigin="0.5,0.5">
+					<Grid.RenderTransform>
+						<TranslateTransform x:Name="translateHotlinesGrid" />
+					</Grid.RenderTransform>					
+					<Grid.Triggers>
+						<EventTrigger RoutedEvent="Binding.TargetUpdated">
+							<BeginStoryboard>
+								<Storyboard>
+									<DoubleAnimation Storyboard.TargetName="translateHotlinesGrid" Storyboard.TargetProperty="X" From="-550" To="0" Duration="0:0:0.300">
+										<DoubleAnimation.EasingFunction>
+											<CubicEase EasingMode="EaseInOut"/>
+										</DoubleAnimation.EasingFunction>
+									</DoubleAnimation>
+								</Storyboard>
+							</BeginStoryboard>
+						</EventTrigger>
+					</Grid.Triggers>
+					<Rectangle Fill="#691515">
+						<Rectangle.RenderTransform>
+							<SkewTransform AngleX="24" />
+						</Rectangle.RenderTransform>
+					</Rectangle>
 					<TextBlock
-						Margin="36,4"
+						Margin="48,4,36,4"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Center"
 						FontFamily="Arial"
-						FontSize="12"
+						FontSize="12" MinWidth="200"
 						FontWeight="Bold"
 						Foreground="White"
-						Text="{Binding Hotlines, Mode=OneWay}" />
+						Text="{Binding Hotlines, Mode=OneWay, NotifyOnTargetUpdated=True}">
+						<TextBlock.Triggers>
+							<EventTrigger RoutedEvent="Binding.TargetUpdated">
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity"  From="0.2" To="1" Duration="0:0:1">
+											<DoubleAnimation.EasingFunction>
+												<CubicEase EasingMode="EaseInOut"/>
+											</DoubleAnimation.EasingFunction>
+										</DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</EventTrigger>
+						</TextBlock.Triggers>
+					</TextBlock>
 				</Grid>
 
 				<!--  Grid Titles  -->
@@ -88,20 +122,20 @@
 						Text="{Binding Title, Mode=OneWay, NotifyOnTargetUpdated=True}"
 						TextAlignment="Left" RenderTransformOrigin="0.5,0.5">
 						<TextBlock.RenderTransform>
-							<TranslateTransform x:Name="TitleX" />
+							<TranslateTransform x:Name="translateTitle" />
 						</TextBlock.RenderTransform>
 						<TextBlock.Triggers>
-									<EventTrigger RoutedEvent="Binding.TargetUpdated">
-										<BeginStoryboard>
-											<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="TitleX" Storyboard.TargetProperty="X"  From="-250" To="0" Duration="0:0:0.400">
+							<EventTrigger RoutedEvent="Binding.TargetUpdated">
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="translateTitle" Storyboard.TargetProperty="X"  From="-250" To="0" Duration="0:0:0.400">
 											<DoubleAnimation.EasingFunction>
 												<CubicEase EasingMode="EaseInOut"/>
 											</DoubleAnimation.EasingFunction>
 										</DoubleAnimation>
-											</Storyboard>
-										</BeginStoryboard>
-									</EventTrigger> 						
+									</Storyboard>
+								</BeginStoryboard>
+							</EventTrigger>
 						</TextBlock.Triggers>
 					</TextBlock>
 				</Grid>
@@ -110,7 +144,23 @@
 				<Grid
 					Margin="0,0,40,-34"
 					HorizontalAlignment="Right" Visibility="{Binding Anchor, Mode=OneWay, Converter={StaticResource TitleToVisibilityConverter}}"
-					VerticalAlignment="Center" MinWidth="220">
+					VerticalAlignment="Center" MinWidth="220" RenderTransformOrigin="0.5,0.5">
+					<Grid.RenderTransform>
+						<TranslateTransform x:Name="translateAnchorGrid" />
+					</Grid.RenderTransform>
+					<Grid.Triggers>
+						<EventTrigger RoutedEvent="Binding.TargetUpdated">
+							<BeginStoryboard>
+								<Storyboard>
+									<DoubleAnimation Storyboard.TargetName="translateAnchorGrid" Storyboard.TargetProperty="X" From="-550" To="0" Duration="0:0:0.300">
+										<DoubleAnimation.EasingFunction>
+											<CubicEase EasingMode="EaseInOut"/>
+										</DoubleAnimation.EasingFunction>
+									</DoubleAnimation>
+								</Storyboard>
+							</BeginStoryboard>
+						</EventTrigger>
+					</Grid.Triggers>
 					<Rectangle Fill="White">
 						<Rectangle.RenderTransform>
 							<SkewTransform AngleX="24" />
@@ -125,8 +175,22 @@
 						FontSize="14"
 						FontWeight="Bold"
 						Foreground="#0011AA"
-						Text="{Binding Anchor, Mode=OneWay}"
-						TextAlignment="Center" />
+						Text="{Binding Anchor, Mode=OneWay, NotifyOnTargetUpdated=True}"
+						TextAlignment="Center">
+						<TextBlock.Triggers>
+							<EventTrigger RoutedEvent="Binding.TargetUpdated">
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity"  From="0.2" To="1" Duration="0:0:1">
+											<DoubleAnimation.EasingFunction>
+												<CubicEase EasingMode="EaseInOut"/>
+											</DoubleAnimation.EasingFunction>
+										</DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</EventTrigger>
+						</TextBlock.Triggers>
+					</TextBlock>
 				</Grid>
 
 				<!--  SCROLL TEXT GRID  -->
@@ -160,7 +224,7 @@
 										<DoubleAnimation
 											Storyboard.TargetName="translate"
 											Storyboard.TargetProperty="X"
-											From="900"
+											From="0"
 											To="-900"
 											Duration="0:0:15" />
 									</Storyboard>
@@ -173,14 +237,14 @@
 				<Canvas
 					Grid.Row="2"
 					Grid.ColumnSpan="2"
-					Background="White"
+					Background="#DEDEDE"
 					ClipToBounds="True"
 					Loaded="Canvas_Loaded">
 					<Canvas
 						Name="canMain"
-						Width="1000"
-						Height="86"
-						Margin="0,4,0,0"
+						Width="990"
+						Height="28"
+						Margin="8,4,8,0"
 						HorizontalAlignment="Stretch">
 						<TextBlock
 							x:Name="ScrollText"

@@ -34,7 +34,7 @@ namespace RPNStreamControl.Wpf
 	public partial class MainWindow : Window
 	{
 		readonly string FILES_DIRECTORY = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory), "StreamFiles");
-		readonly string[] FILENAMES = new string[4] { "datetime.txt", "title.txt", "subtitle.txt", "scroll.txt" };
+		readonly string[] FILENAMES = new string[5] { "datetime.txt", "title.txt", "subtitle.txt", "hotlines.txt", "scroll.txt" };
 
 		public MainViewModel ViewModel { get; } = new MainViewModel();
 		public TemplateViewModel TemplateViewModel { get; } = new TemplateViewModel();
@@ -103,7 +103,7 @@ namespace RPNStreamControl.Wpf
 
 		private void ScrollTextBox_Loaded(object sender, RoutedEventArgs e)
 		{
-			string path = System.IO.Path.Combine(FILES_DIRECTORY, FILENAMES[3]);
+			string path = System.IO.Path.Combine(FILES_DIRECTORY, FILENAMES[4]);
 
 			LoadText(path, tbxScroll);
 		}
@@ -114,6 +114,10 @@ namespace RPNStreamControl.Wpf
 
 			// Read and Load saved text
 			textbox.Text = File.ReadAllText(path);
+
+			TemplateViewModel.Title = tbxTitle.Text;
+			TemplateViewModel.Anchor = tbxSubTitle.Text;
+			TemplateViewModel.Hotlines = tbxHotlines.Text;
 		}
 
 		private void UpdateFiles_Click(object sender, RoutedEventArgs e)
@@ -135,118 +139,11 @@ namespace RPNStreamControl.Wpf
 			LoadText(path, tbxSubTitle);
 		}
 
-		private async void GetForex_Click(object sender, RoutedEventArgs e)
-		{
-			string url = "https://api.exchangerate.host/latest?base=PHP&symbols=USD,EUR,JPY,GBP,HKD,CAD,SGD,AUD,SAR,AED,KRW,CNY";
-
-			using HttpClient client = new();
-			client.DefaultRequestHeaders.Accept.Clear();
-
-			var json = await client.GetStringAsync(url);
-			var data = JsonConvert.DeserializeObject<Forex>(json);
-
-			StringBuilder sb = new();
-
-			if (data == null) return;
-
-			sb.Append("EXCHANGE RATES: 1 USD = ");
-			sb.Append((1 / data.Rates.USD).ToString("C2", CultureInfo.CurrentCulture) + " | 1 GBP = ");
-			sb.Append((1 / data.Rates.GBP).ToString("C2", CultureInfo.CurrentCulture) + " | 1 EUR = ");
-			sb.Append((1 / data.Rates.EUR).ToString("C2", CultureInfo.CurrentCulture) + " | 1 SAR = ");
-			sb.Append((1 / data.Rates.SAR).ToString("C2", CultureInfo.CurrentCulture) + " | 1 AED = ");
-			sb.Append((1 / data.Rates.AED).ToString("C2", CultureInfo.CurrentCulture) + " | 1 CAD = ");
-			sb.Append((1 / data.Rates.CAD).ToString("C2", CultureInfo.CurrentCulture) + " | 1 SGD = ");
-			sb.Append((1 / data.Rates.SGD).ToString("C2", CultureInfo.CurrentCulture) + " | 1 KRW = ");
-			sb.Append((1 / data.Rates.KRW).ToString("C2", CultureInfo.CurrentCulture) + " | 1 HKD = ");
-			sb.Append((1 / data.Rates.HKD).ToString("C2", CultureInfo.CurrentCulture) + " | 1 CNY = ");
-			sb.Append((1 / data.Rates.CNY).ToString("C2", CultureInfo.CurrentCulture) + " | 1 JPY = ");
-			sb.Append((1 / data.Rates.JPY).ToString("C2", CultureInfo.CurrentCulture) + " | 1 AUD = ");
-			sb.Append((1 / data.Rates.AUD).ToString("C2", CultureInfo.CurrentCulture) + " *** ");
-
-			tbxForex.Text = sb.ToString();
-		}
-
-		// 
-		public class Motd
-		{
-			[JsonProperty("msg")]
-			public string Msg { get; set; }
-
-			[JsonProperty("url")]
-			public string Url { get; set; }
-		}
-
-		public class Rates
-		{
-			public List<double> RateList { get; private set; }
-
-			public Rates()
-			{
-				RateList = new List<double>()
-				{
-					AED, AUD, CAD, CNY, EUR, GBP, HKD, JPY, KRW, SAR, SGD, USD
-				};
-			}
-
-			[JsonProperty("AED")]
-			public double AED { get; set; }
-
-			[JsonProperty("AUD")]
-			public double AUD { get; set; }
-
-			[JsonProperty("CAD")]
-			public double CAD { get; set; }
-
-			[JsonProperty("CNY")]
-			public double CNY { get; set; }
-
-			[JsonProperty("EUR")]
-			public double EUR { get; set; }
-
-			[JsonProperty("GBP")]
-			public double GBP { get; set; }
-
-			[JsonProperty("HKD")]
-			public double HKD { get; set; }
-
-			[JsonProperty("JPY")]
-			public double JPY { get; set; }
-
-			[JsonProperty("KRW")]
-			public double KRW { get; set; }
-
-			[JsonProperty("SAR")]
-			public double SAR { get; set; }
-
-			[JsonProperty("SGD")]
-			public double SGD { get; set; }
-
-			[JsonProperty("USD")]
-			public double USD { get; set; }
-		}
-
-		public class Forex
-		{
-			[JsonProperty("motd")]
-			public Motd Motd { get; set; }
-
-			[JsonProperty("success")]
-			public bool Success { get; set; }
-
-			[JsonProperty("base")]
-			public string Base { get; set; }
-
-			[JsonProperty("date")]
-			public string Date { get; set; }
-
-			[JsonProperty("rates")]
-			public Rates Rates { get; set; }
-		}
-
 		private void Preview_Click(object sender, RoutedEventArgs e)
 		{
 			TemplateViewModel.Title = tbxTitle.Text;
 			TemplateViewModel.Anchor = tbxSubTitle.Text;
+			TemplateViewModel.Hotlines = tbxHotlines.Text;
 
 			UpdateFiles();
 		}
@@ -269,9 +166,21 @@ namespace RPNStreamControl.Wpf
 
 				if (i == 3)
 				{
-					WriteToFile(path, tbxScroll.Text);
+					WriteToFile(path, tbxHotlines.Text);
 				}
+
+				if (i == 4)
+				{
+					WriteToFile(path, tbxScroll.Text);
+				}				
 			}
+		}
+
+		private void HotlinesTextBox_Loaded(object sender, RoutedEventArgs e)
+		{
+			string path = System.IO.Path.Combine(FILES_DIRECTORY, FILENAMES[3]);
+
+			LoadText(path, tbxHotlines);
 		}
 	}
 }

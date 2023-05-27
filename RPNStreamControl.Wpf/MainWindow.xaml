@@ -25,41 +25,48 @@
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="Auto" />
-				<RowDefinition />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
 				<RowDefinition Height="8" />
 				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
 			</Grid.RowDefinitions>
-			<Label Content="Program Title" FontWeight="Bold" />
+			<Label Content="Layout Style" FontWeight="Bold" Visibility="Collapsed"/>
+
+			<StackPanel Grid.Row="1" Visibility="Collapsed">
+				<RadioButton Content="Lower-third"/>
+				<RadioButton Content="Bug"/>
+			</StackPanel>
 			
-			<Label Content="Program Title" FontWeight="Bold" />
+			<Label Content="Program Title" FontWeight="Bold" Grid.Row="2"/>
 			<TextBox
 				x:Name="tbxTitle"
-				Grid.Row="1"
+				Grid.Row="3"
 				Loaded="TitleTextBox_Loaded"
 				TextWrapping="Wrap" />
 			<Label
-				Grid.Row="2"
+				Grid.Row="4"
 				Margin="0,8,0,0"
 				Content="Anchor"
 				FontWeight="Bold" />
 			<TextBox
 				x:Name="tbxSubTitle"
-				Grid.Row="3"
+				Grid.Row="5"
 				Loaded="SubtitleTextBox_Loaded"
 				TextWrapping="Wrap" />
 			<Label
-				Grid.Row="4"
+				Grid.Row="6"
 				Margin="0,8,0,0"
-				Content="Scroll"
+				Content="Hotlines"
 				FontWeight="Bold" />
 			<TextBox
-				x:Name="tbxScroll"
-				Grid.Row="5"
-				Loaded="ScrollTextBox_Loaded"
+				x:Name="tbxHotlines"
+				Grid.Row="7"
+				Loaded="HotlinesTextBox_Loaded"
 				TextWrapping="Wrap" />
 			<Button
-				Grid.Row="7"
+				Grid.Row="9"
 				HorizontalAlignment="Stretch"
 				VerticalAlignment="Bottom"
 				Click="UpdateFiles_Click"
@@ -83,20 +90,15 @@
 				<RowDefinition Height="8" />
 				<RowDefinition Height="Auto" />
 			</Grid.RowDefinitions>
-			<Label Content="Forex" FontWeight="Bold" />
+			<Label
+				Margin="0,8,0,0"
+				Content="Scroll/Ticker Text"
+				FontWeight="Bold" />
 			<TextBox
-				x:Name="tbxForex"
+				x:Name="tbxScroll"
 				Grid.Row="1"
-				MinHeight="140"
-				IsReadOnly="True"
+				Loaded="ScrollTextBox_Loaded"
 				TextWrapping="Wrap" />
-			<Button
-				x:Name="btnGetForex"
-				Grid.Row="2"
-				Margin="0,8"
-				HorizontalAlignment="Right"
-				Click="GetForex_Click"
-				Content="Get Foreign Exchange" />
 		</Grid>
 	</Grid>
 </Window>
