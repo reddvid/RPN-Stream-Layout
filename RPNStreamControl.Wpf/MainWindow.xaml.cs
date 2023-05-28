@@ -25,6 +25,7 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 using System.Globalization;
 using RPNStreamControl.Wpf.ViewModels;
+using RPNStreamControl.Wpf.Models;
 
 namespace RPNStreamControl.Wpf
 {
@@ -45,8 +46,20 @@ namespace RPNStreamControl.Wpf
 
 			Loaded += MainWindow_Loaded;
 
+			Closing += MainWindow_Closing;
+
 			DataContext = ViewModel;
 		}
+
+		private void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
+		{
+			try
+			{
+				Application.Current.Shutdown();
+			} catch { }
+		}
+
+		private TemplateWindow Current;
 
 		private void MainWindow_Loaded(object sender, RoutedEventArgs e)
 		{
@@ -55,8 +68,8 @@ namespace RPNStreamControl.Wpf
 
 			InitTimer();
 
-			var preview = new TemplateWindow(TemplateViewModel);
-			preview.Show();
+			Current = new TemplateWindow(TemplateViewModel);
+			Current.Show();
 		}
 
 		private void InitTimer()
@@ -121,7 +134,9 @@ namespace RPNStreamControl.Wpf
 				TemplateViewModel.Anchor = tbxSubTitle.Text;
 				TemplateViewModel.Hotlines = tbxHotlines.Text;
 				TemplateViewModel.Scroll = tbxScroll.Text;
-			} catch {  }
+				TemplateViewModel.ImagePath = TemplateViewModel.ImagePath = (StationComboBox.SelectedItem as StationSelector).ImagePath;
+			}
+			catch {  }
 
 		}
 
@@ -146,12 +161,11 @@ namespace RPNStreamControl.Wpf
 
 		private void Preview_Click(object sender, RoutedEventArgs e)
 		{
-			TemplateViewModel.Title = tbxTitle.Text;
-			TemplateViewModel.Anchor = tbxSubTitle.Text;
-			TemplateViewModel.Hotlines = tbxHotlines.Text;
-			TemplateViewModel.Scroll = tbxScroll.Text;
-
 			UpdateFiles();
+
+			if (Current.IsActive) return;
+
+			Current.Show();
 		}
 
 		private void UpdateFiles()
@@ -180,6 +194,12 @@ namespace RPNStreamControl.Wpf
 					WriteToFile(path, tbxScroll.Text);
 				}				
 			}
+
+			TemplateViewModel.Title = tbxTitle.Text;
+			TemplateViewModel.Anchor = tbxSubTitle.Text;
+			TemplateViewModel.Hotlines = tbxHotlines.Text;
+			TemplateViewModel.Scroll = tbxScroll.Text;
+			TemplateViewModel.ImagePath = (StationComboBox.SelectedItem as StationSelector).ImagePath;
 		}
 
 		private void HotlinesTextBox_Loaded(object sender, RoutedEventArgs e)
@@ -188,5 +208,16 @@ namespace RPNStreamControl.Wpf
 
 			LoadText(path, tbxHotlines);
 		}
-	}
+
+		private void StationComboBox_Loaded(object sender, RoutedEventArgs e)
+		{
+
+        }
+
+		private void StationComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			var item = (sender as ComboBox).SelectedItem as StationSelector;
+			if (item == null) return;
+        }
+    }
 }

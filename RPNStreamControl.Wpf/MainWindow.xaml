@@ -32,14 +32,31 @@
 				<RowDefinition Height="8" />
 				<RowDefinition Height="Auto" />
 			</Grid.RowDefinitions>
-			<Label Content="Layout Style" FontWeight="Bold" Visibility="Collapsed"/>
+			<Label
+				Content="Layout Style"
+				FontWeight="Bold"
+				Visibility="Collapsed" />
 
 			<StackPanel Grid.Row="1" Visibility="Collapsed">
-				<RadioButton Content="Lower-third"/>
-				<RadioButton Content="Bug"/>
+				<RadioButton Content="Lower-third" />
+				<RadioButton Content="Bug" />
 			</StackPanel>
-			
-			<Label Content="Program Title" FontWeight="Bold" Grid.Row="2"/>
+
+			<Label Content="Station" FontWeight="Bold" />
+			<ComboBox
+				x:Name="StationComboBox"
+				Grid.Row="1"
+				HorizontalAlignment="Stretch"
+				DisplayMemberPath="Name"
+				ItemsSource="{Binding StationSelectors, Mode=OneWay}"
+				Loaded="StationComboBox_Loaded"
+				SelectedItem="{Binding SelectedStation, Mode=TwoWay}"
+				SelectionChanged="StationComboBox_SelectionChanged" />
+
+			<Label
+				Grid.Row="2"
+				Content="Program Title"
+				FontWeight="Bold" />
 			<TextBox
 				x:Name="tbxTitle"
 				Grid.Row="3"
@@ -53,6 +70,7 @@
 			<TextBox
 				x:Name="tbxSubTitle"
 				Grid.Row="5"
+				ui:TextBoxHelper.IsDeleteButtonVisible="True"
 				Loaded="SubtitleTextBox_Loaded"
 				TextWrapping="Wrap" />
 			<Label
@@ -63,6 +81,7 @@
 			<TextBox
 				x:Name="tbxHotlines"
 				Grid.Row="7"
+				ui:TextBoxHelper.IsDeleteButtonVisible="True"
 				Loaded="HotlinesTextBox_Loaded"
 				TextWrapping="Wrap" />
 			<Button
@@ -70,7 +89,8 @@
 				HorizontalAlignment="Stretch"
 				VerticalAlignment="Bottom"
 				Click="UpdateFiles_Click"
-				Content="Update" Visibility="Collapsed" />
+				Content="Update"
+				Visibility="Collapsed" />
 			<Button
 				x:Name="btnPreview"
 				Grid.Row="8"

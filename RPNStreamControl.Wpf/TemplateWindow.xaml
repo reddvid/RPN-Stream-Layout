@@ -5,15 +5,16 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="clr-namespace:RPNStreamControl.Wpf"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:utils="clr-namespace:RPNStreamControl.Wpf.Utils"
 	Title="TemplateWindow"
 	Width="1280"
-	Height="752" xmlns:utils="clr-namespace:RPNStreamControl.Wpf.Utils"
+	Height="752"
 	Background="#3FFE0F"
-	ResizeMode="NoResize"
+	ResizeMode="CanMinimize"
 	mc:Ignorable="d">
 
 	<Window.Resources>
-		<utils:TitleToVisibilityConverter x:Key="TitleToVisibilityConverter"/>
+		<utils:TitleToVisibilityConverter x:Key="TitleToVisibilityConverter" />
 	</Window.Resources>
 
 	<Grid>
@@ -54,9 +55,14 @@
 				<Grid
 					x:Name="GridHotlines"
 					Grid.Row="1"
-					Grid.Column="2" HorizontalAlignment="Left"
-					Grid.ColumnSpan="2" MaxWidth="360" ClipToBounds="True"
-					Margin="-50,24,0,0" Visibility="{Binding Hotlines, Mode=OneWay, Converter={StaticResource TitleToVisibilityConverter}}" RenderTransformOrigin="0.5,0.5">
+					Grid.Column="2"
+					Grid.ColumnSpan="2"
+					MaxWidth="360"
+					Margin="-50,24,0,0"
+					HorizontalAlignment="Left"
+					ClipToBounds="True"
+					RenderTransformOrigin="0.5,0.5"
+					Visibility="{Binding Hotlines, Mode=OneWay, Converter={StaticResource TitleToVisibilityConverter}}">
 					<Grid.RenderTransform>
 						<TranslateTransform x:Name="translateHotlinesGrid" />
 					</Grid.RenderTransform>
@@ -64,9 +70,14 @@
 						<EventTrigger RoutedEvent="Binding.TargetUpdated">
 							<BeginStoryboard>
 								<Storyboard>
-									<DoubleAnimation Storyboard.TargetName="translateHotlinesGrid" Storyboard.TargetProperty="X" From="-550" To="0" Duration="0:0:0.300">
+									<DoubleAnimation
+										Storyboard.TargetName="translateHotlinesGrid"
+										Storyboard.TargetProperty="X"
+										From="-550"
+										To="0"
+										Duration="0:0:0.300">
 										<DoubleAnimation.EasingFunction>
-											<CubicEase EasingMode="EaseInOut"/>
+											<CubicEase EasingMode="EaseInOut" />
 										</DoubleAnimation.EasingFunction>
 									</DoubleAnimation>
 								</Storyboard>
@@ -79,11 +90,12 @@
 						</Rectangle.RenderTransform>
 					</Rectangle>
 					<TextBlock
+						MinWidth="200"
 						Margin="48,4,36,4"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Center"
 						FontFamily="Arial"
-						FontSize="12" MinWidth="200"
+						FontSize="12"
 						FontWeight="Bold"
 						Foreground="White"
 						Text="{Binding Hotlines, Mode=OneWay, NotifyOnTargetUpdated=True}">
@@ -91,9 +103,13 @@
 							<EventTrigger RoutedEvent="Binding.TargetUpdated">
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetProperty="Opacity"  From="0.2" To="1" Duration="0:0:1">
+										<DoubleAnimation
+											Storyboard.TargetProperty="Opacity"
+											From="0.2"
+											To="1"
+											Duration="0:0:1">
 											<DoubleAnimation.EasingFunction>
-												<CubicEase EasingMode="EaseInOut"/>
+												<CubicEase EasingMode="EaseInOut" />
 											</DoubleAnimation.EasingFunction>
 										</DoubleAnimation>
 									</Storyboard>
@@ -104,7 +120,10 @@
 				</Grid>
 
 				<!--  Grid Titles  -->
-				<Grid Grid.Row="1" MinWidth="600" ClipToBounds="True">
+				<Grid
+					Grid.Row="1"
+					MinWidth="480"
+					ClipToBounds="True">
 					<Rectangle Fill="#0011AA">
 						<Rectangle.RenderTransform>
 							<SkewTransform AngleX="-24" />
@@ -112,15 +131,19 @@
 					</Rectangle>
 					<TextBlock
 						x:Name="TextTitle"
+						MaxWidth="600"
 						Margin="24,4,120,4"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Center"
-						FontFamily="Arial" MaxWidth="600"
-						FontSize="24" TextWrapping="NoWrap" TextTrimming="WordEllipsis"
+						FontFamily="Arial"
+						FontSize="24"
 						FontWeight="Bold"
 						Foreground="White"
+						RenderTransformOrigin="0.5,0.5"
 						Text="{Binding Title, Mode=OneWay, NotifyOnTargetUpdated=True}"
-						TextAlignment="Left" RenderTransformOrigin="0.5,0.5">
+						TextAlignment="Left"
+						TextTrimming="WordEllipsis"
+						TextWrapping="NoWrap">
 						<TextBlock.RenderTransform>
 							<TranslateTransform x:Name="translateTitle" />
 						</TextBlock.RenderTransform>
@@ -128,9 +151,14 @@
 							<EventTrigger RoutedEvent="Binding.TargetUpdated">
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="translateTitle" Storyboard.TargetProperty="X"  From="-250" To="0" Duration="0:0:0.400">
+										<DoubleAnimation
+											Storyboard.TargetName="translateTitle"
+											Storyboard.TargetProperty="X"
+											From="-250"
+											To="0"
+											Duration="0:0:0.400">
 											<DoubleAnimation.EasingFunction>
-												<CubicEase EasingMode="EaseInOut"/>
+												<CubicEase EasingMode="EaseInOut" />
 											</DoubleAnimation.EasingFunction>
 										</DoubleAnimation>
 									</Storyboard>
@@ -142,9 +170,12 @@
 
 				<!--  ANCHOR GRID  -->
 				<Grid
+					MinWidth="220"
 					Margin="0,0,40,-34"
-					HorizontalAlignment="Right" Visibility="{Binding Anchor, Mode=OneWay, Converter={StaticResource TitleToVisibilityConverter}}"
-					VerticalAlignment="Center" MinWidth="220" RenderTransformOrigin="0.5,0.5">
+					HorizontalAlignment="Right"
+					VerticalAlignment="Center"
+					RenderTransformOrigin="0.5,0.5"
+					Visibility="{Binding Anchor, Mode=OneWay, Converter={StaticResource TitleToVisibilityConverter}}">
 					<Grid.RenderTransform>
 						<TranslateTransform x:Name="translateAnchorGrid" />
 					</Grid.RenderTransform>
@@ -152,9 +183,14 @@
 						<EventTrigger RoutedEvent="Binding.TargetUpdated">
 							<BeginStoryboard>
 								<Storyboard>
-									<DoubleAnimation Storyboard.TargetName="translateAnchorGrid" Storyboard.TargetProperty="X" From="-550" To="0" Duration="0:0:0.300">
+									<DoubleAnimation
+										Storyboard.TargetName="translateAnchorGrid"
+										Storyboard.TargetProperty="X"
+										From="-550"
+										To="0"
+										Duration="0:0:0.300">
 										<DoubleAnimation.EasingFunction>
-											<CubicEase EasingMode="EaseInOut"/>
+											<CubicEase EasingMode="EaseInOut" />
 										</DoubleAnimation.EasingFunction>
 									</DoubleAnimation>
 								</Storyboard>
@@ -181,9 +217,13 @@
 							<EventTrigger RoutedEvent="Binding.TargetUpdated">
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetProperty="Opacity"  From="0.2" To="1" Duration="0:0:1">
+										<DoubleAnimation
+											Storyboard.TargetProperty="Opacity"
+											From="0.2"
+											To="1"
+											Duration="0:0:1">
 											<DoubleAnimation.EasingFunction>
-												<CubicEase EasingMode="EaseInOut"/>
+												<CubicEase EasingMode="EaseInOut" />
 											</DoubleAnimation.EasingFunction>
 										</DoubleAnimation>
 									</Storyboard>
@@ -193,7 +233,7 @@
 					</TextBlock>
 				</Grid>
 
-				<!--<Grid 
+				<!--<Grid
 					Grid.Row="2"
 					Grid.ColumnSpan="2"
 					Background="#F4F4F4"
@@ -227,14 +267,14 @@
 									   FontWeight="SemiBold" Canvas.Left="0"/>
 							<TextBlock Text="{Binding Text, ElementName=ScrollText}"    Margin="12,4"
 									   FontFamily="Arial" TextWrapping="NoWrap"
-									   FontSize="16"  Foreground="#171717" 
+									   FontSize="16"  Foreground="#171717"
 									   FontWeight="SemiBold" Canvas.Left="{Binding Width, ElementName=canvas}"/>
 						</Canvas>
 					</StackPanel>
 				</Grid>-->
 
 				<!--  SCROLL TEXT GRID  -->
-				<Canvas 
+				<Canvas
 					Grid.Row="2"
 					Grid.ColumnSpan="2"
 					Background="#F4F4F4"
@@ -246,22 +286,29 @@
 						Height="28"
 						Margin="8,8,8,0"
 						HorizontalAlignment="Stretch">
-						<StackPanel Orientation="Horizontal" x:Name="StackTicker">
-							<Image Source="/RPNStreamControl.Wpf;component/Assets/Images/rpn-logo-white-bg.png" Height="24"/>
-							<TextBlock x:Name="ScrollText" 
-									   SizeChanged="ScrollText_SizeChanged"
-									   Margin="12,4"
-									   FontFamily="Arial" TextWrapping="NoWrap"
-									   FontSize="14"
-									   FontWeight="SemiBold"  Canvas.Left="0"
-									   Loaded="TextBlock_Loaded"
-									   Text="RPN TICKER" />
+						<StackPanel x:Name="StackTicker" Orientation="Horizontal">
+							<Image Height="24" Source="/RPNStreamControl.Wpf;component/Assets/Images/rpn-logo-white-bg.png" />
+							<TextBlock
+								x:Name="ScrollText"
+								Canvas.Left="0"
+								Margin="12,4"
+								FontFamily="Arial"
+								FontSize="14"
+								FontWeight="SemiBold"
+								Loaded="TextBlock_Loaded"
+								SizeChanged="ScrollText_SizeChanged"
+								Text="RPN TICKER"
+								TextWrapping="NoWrap" />
 						</StackPanel>
 					</Canvas>
 				</Canvas>
 
-				<Rectangle Fill="#691515" Height="6" VerticalAlignment="Top" Grid.Row="2"
-					Grid.ColumnSpan="2"/>
+				<Rectangle
+					Grid.Row="2"
+					Grid.ColumnSpan="2"
+					Height="6"
+					VerticalAlignment="Top"
+					Fill="#691515" />
 			</Grid>
 
 			<!--  LOGO  -->
@@ -274,7 +321,7 @@
 				<Image
 					Margin="0,0,0,-4"
 					HorizontalAlignment="Stretch"
-					Source="/RPNStreamControl.Wpf;component/Assets/Images/Logos/batac-logo.png"
+					Source="{Binding ImagePath, Mode=OneWay}"
 					Stretch="UniformToFill" />
 				<Grid Grid.Row="1" Background="White">
 					<Image

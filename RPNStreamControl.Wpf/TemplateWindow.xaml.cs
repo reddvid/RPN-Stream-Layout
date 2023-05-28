@@ -31,11 +31,21 @@ namespace RPNStreamControl.Wpf
 
 		public TemplateWindow(TemplateViewModel viewModel) : this()
 		{
+			InitializeComponent();
+
 			ViewModel = viewModel;
 
 			DataContext = ViewModel;
+
+			Closing += TemplateWindow_Closing;
 		}
-		
+
+		private void TemplateWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
+		{
+			e.Cancel = true;
+			this.Visibility = Visibility.Hidden;
+		}
+
 		public TemplateWindow()
 		{
 			InitializeComponent();

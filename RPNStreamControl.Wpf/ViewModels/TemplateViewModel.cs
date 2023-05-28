@@ -71,5 +71,14 @@ namespace RPNStreamControl.Wpf.ViewModels
 			get => _hotlines;
 			set => SetProperty(ref _hotlines, value);
 		}
+
+		private string _imagePath;
+
+		public string ImagePath
+		{
+			get => _imagePath;
+			set => SetProperty(ref _imagePath, value);
+		}
+
 	}
 }
