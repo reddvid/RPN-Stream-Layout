@@ -14,7 +14,7 @@ namespace RPNStreamControl.Wpf.Models
         public StationSelector(string name, string imgPath)
         {
             Name = name;
-            ImagePath = $"/RPNStreamControl.Wpf;component/Assets/Images/Logos/{imgPath}-logo.png";
+            ImagePath = $"/RPN Stream Layout;component/Assets/Images/Logos/{imgPath}-logo.png";
 		}
     }
 }

@@ -18,7 +18,7 @@
 			<ColumnDefinition Width="12" />
 			<ColumnDefinition />
 		</Grid.ColumnDefinitions>
-		<Grid>
+		<Grid ClipToBounds="True">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="Auto" />
@@ -60,6 +60,7 @@
 			<TextBox
 				x:Name="tbxTitle"
 				Grid.Row="3"
+				ui:TextBoxHelper.IsDeleteButtonVisible="True"
 				Loaded="TitleTextBox_Loaded"
 				TextWrapping="Wrap" />
 			<Label

@@ -5,11 +5,13 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="clr-namespace:RPNStreamControl.Wpf"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:ui="http://schemas.modernwpf.com/2019"
 	xmlns:utils="clr-namespace:RPNStreamControl.Wpf.Utils"
-	Title="TemplateWindow"
+	Title="Output Layout"
 	Width="1280"
 	Height="752"
-	Background="#3FFE0F"
+	ui:WindowHelper.UseModernWindowStyle="True"
+	Foreground="Black"
 	ResizeMode="CanMinimize"
 	mc:Ignorable="d">
 
@@ -17,7 +19,7 @@
 		<utils:TitleToVisibilityConverter x:Key="TitleToVisibilityConverter" />
 	</Window.Resources>
 
-	<Grid>
+	<Grid Background="#3FFE0F">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="844*" />
 			<RowDefinition Height="195*" />
@@ -40,7 +42,10 @@
 				<ColumnDefinition Width="1515*" />
 			</Grid.ColumnDefinitions>
 			<!--  TITLES  -->
-			<Grid Grid.Column="1" Grid.ColumnSpan="2">
+			<Grid
+				Grid.Column="1"
+				Grid.ColumnSpan="2"
+				ClipToBounds="True">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="30*" />
@@ -119,11 +124,34 @@
 					</TextBlock>
 				</Grid>
 
-				<!--  Grid Titles  -->
+				<!--  GRID TITLE  -->
 				<Grid
 					Grid.Row="1"
 					MinWidth="480"
-					ClipToBounds="True">
+					ClipToBounds="True"
+					RenderTransformOrigin="0.5,0.5"
+					Visibility="{Binding Title, Mode=OneWay, Converter={StaticResource TitleToVisibilityConverter}}">
+					<Grid.RenderTransform>
+						<TranslateTransform x:Name="translateTitleGrid" />
+					</Grid.RenderTransform>
+					<Grid.Triggers>
+						<EventTrigger RoutedEvent="Binding.TargetUpdated">
+							<BeginStoryboard>
+								<Storyboard>
+									<DoubleAnimation
+										Storyboard.TargetName="translateTitleGrid"
+										Storyboard.TargetProperty="X"
+										From="-550"
+										To="0"
+										Duration="0:0:0.300">
+										<DoubleAnimation.EasingFunction>
+											<CubicEase EasingMode="EaseInOut" />
+										</DoubleAnimation.EasingFunction>
+									</DoubleAnimation>
+								</Storyboard>
+							</BeginStoryboard>
+						</EventTrigger>
+					</Grid.Triggers>
 					<Rectangle Fill="#0011AA">
 						<Rectangle.RenderTransform>
 							<SkewTransform AngleX="-24" />
@@ -233,46 +261,6 @@
 					</TextBlock>
 				</Grid>
 
-				<!--<Grid
-					Grid.Row="2"
-					Grid.ColumnSpan="2"
-					Background="#F4F4F4"
-					ClipToBounds="True"
-					Loaded="Canvas_Loaded">
-					<StackPanel Orientation="Horizontal" x:Name="stack">
-						<StackPanel.Resources>
-							<utils:DoubleNegationConverter x:Key="NegatingConverter" />
-							<Storyboard x:Key="slide">
-								<DoubleAnimation From="0" To="{Binding Width, ElementName=canvas, Converter={StaticResource NegatingConverter}}" Duration="00:00:30"
-                      Storyboard.TargetProperty="X" x:Name="myDoubleSlide"
-                      Storyboard.TargetName="transferCurreny"
-                      RepeatBehavior="Forever"/>
-							</Storyboard>
-						</StackPanel.Resources>
-						<StackPanel.RenderTransform>
-							<TranslateTransform x:Name="transferCurreny" X="0"/>
-						</StackPanel.RenderTransform>
-						<StackPanel.Triggers>
-							<EventTrigger RoutedEvent="StackPanel.Loaded">
-								<BeginStoryboard Storyboard="{StaticResource slide}" />
-							</EventTrigger>
-							<EventTrigger RoutedEvent="StackPanel.SizeChanged">
-								<BeginStoryboard Storyboard="{StaticResource slide}" />
-							</EventTrigger>
-						</StackPanel.Triggers>
-						<Canvas x:Name="canvas" Width="{Binding ActualWidth, ElementName=stack}" SizeChanged="canvas_SizeChanged" Height="28">
-							<TextBlock x:Name="ScrollText"  Foreground="#171717"  Margin="12,4"
-									   FontFamily="Arial" TextWrapping="NoWrap"
-									   FontSize="16"
-									   FontWeight="SemiBold" Canvas.Left="0"/>
-							<TextBlock Text="{Binding Text, ElementName=ScrollText}"    Margin="12,4"
-									   FontFamily="Arial" TextWrapping="NoWrap"
-									   FontSize="16"  Foreground="#171717"
-									   FontWeight="SemiBold" Canvas.Left="{Binding Width, ElementName=canvas}"/>
-						</Canvas>
-					</StackPanel>
-				</Grid>-->
-
 				<!--  SCROLL TEXT GRID  -->
 				<Canvas
 					Grid.Row="2"
@@ -287,7 +275,7 @@
 						Margin="8,8,8,0"
 						HorizontalAlignment="Stretch">
 						<StackPanel x:Name="StackTicker" Orientation="Horizontal">
-							<Image Height="24" Source="/RPNStreamControl.Wpf;component/Assets/Images/rpn-logo-white-bg.png" />
+							<Image Height="24" Source="/RPN Stream Layout;component/Assets/Images/rpn-logo-white-bg.png" />
 							<TextBlock
 								x:Name="ScrollText"
 								Canvas.Left="0"
@@ -327,7 +315,7 @@
 					<Image
 						Height="19"
 						Margin="4,0"
-						Source="/RPNStreamControl.Wpf;component/Assets/Images/radyo-ronda.png" />
+						Source="/RPN Stream Layout;component/Assets/Images/radyo-ronda.png" />
 				</Grid>
 
 				<!--  DATETIME  -->

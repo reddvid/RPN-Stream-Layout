@@ -40,6 +40,8 @@ namespace RPNStreamControl.Wpf
 		public MainViewModel ViewModel { get; } = new MainViewModel();
 		public TemplateViewModel TemplateViewModel { get; } = new TemplateViewModel();
 
+		private TemplateWindow? Current;
+
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -59,7 +61,6 @@ namespace RPNStreamControl.Wpf
 			} catch { }
 		}
 
-		private TemplateWindow Current;
 
 		private void MainWindow_Loaded(object sender, RoutedEventArgs e)
 		{
@@ -86,11 +87,9 @@ namespace RPNStreamControl.Wpf
 
 		private void WriteToFile(string path, string content)
 		{
-			using (FileStream fs = File.Create(path))
-			{
-				byte[] info = new UTF8Encoding(true).GetBytes(content);
-				fs.Write(info, 0, info.Length);
-			}
+			using FileStream fs = File.Create(path);
+			byte[] info = new UTF8Encoding(true).GetBytes(content);
+			fs.Write(info, 0, info.Length);
 		}
 
 		/// <summary>
@@ -134,7 +133,7 @@ namespace RPNStreamControl.Wpf
 				TemplateViewModel.Anchor = tbxSubTitle.Text;
 				TemplateViewModel.Hotlines = tbxHotlines.Text;
 				TemplateViewModel.Scroll = tbxScroll.Text;
-				TemplateViewModel.ImagePath = TemplateViewModel.ImagePath = (StationComboBox.SelectedItem as StationSelector).ImagePath;
+				TemplateViewModel.ImagePath = TemplateViewModel.ImagePath = (StationComboBox.SelectedItem as StationSelector)!.ImagePath;
 			}
 			catch {  }
 
@@ -163,7 +162,7 @@ namespace RPNStreamControl.Wpf
 		{
 			UpdateFiles();
 
-			if (Current.IsActive) return;
+			if (Current!.IsActive) return;
 
 			Current.Show();
 		}
@@ -199,7 +198,7 @@ namespace RPNStreamControl.Wpf
 			TemplateViewModel.Anchor = tbxSubTitle.Text;
 			TemplateViewModel.Hotlines = tbxHotlines.Text;
 			TemplateViewModel.Scroll = tbxScroll.Text;
-			TemplateViewModel.ImagePath = (StationComboBox.SelectedItem as StationSelector).ImagePath;
+			TemplateViewModel.ImagePath = (StationComboBox.SelectedItem! as StationSelector)!.ImagePath;
 		}
 
 		private void HotlinesTextBox_Loaded(object sender, RoutedEventArgs e)
@@ -216,7 +215,7 @@ namespace RPNStreamControl.Wpf
 
 		private void StationComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			var item = (sender as ComboBox).SelectedItem as StationSelector;
+			var item = (sender as ComboBox)!.SelectedItem as StationSelector;
 			if (item == null) return;
         }
     }
