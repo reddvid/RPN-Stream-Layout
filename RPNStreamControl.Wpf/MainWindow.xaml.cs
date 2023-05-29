@@ -26,6 +26,7 @@ using Newtonsoft.Json;
 using System.Globalization;
 using RPNStreamControl.Wpf.ViewModels;
 using RPNStreamControl.Wpf.Models;
+using RPNStreamControl.Wpf.Views;
 
 namespace RPNStreamControl.Wpf
 {
@@ -41,6 +42,7 @@ namespace RPNStreamControl.Wpf
 		public TemplateViewModel TemplateViewModel { get; } = new TemplateViewModel();
 
 		private TemplateWindow? Current;
+		private DeviceInfoWindow? _deviceInfoWindow;
 
 		public MainWindow()
 		{
@@ -71,6 +73,8 @@ namespace RPNStreamControl.Wpf
 
 			Current = new TemplateWindow(TemplateViewModel);
 			Current.Show();
+
+			_deviceInfoWindow = new DeviceInfoWindow();
 		}
 
 		private void InitTimer()
@@ -217,6 +221,11 @@ namespace RPNStreamControl.Wpf
 		{
 			var item = (sender as ComboBox)!.SelectedItem as StationSelector;
 			if (item == null) return;
+        }
+
+		private void DeviceInfoShow_Clicked(object sender, RoutedEventArgs e)
+		{
+			_deviceInfoWindow.Show();
         }
     }
 }
