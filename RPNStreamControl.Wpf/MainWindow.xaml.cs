@@ -27,6 +27,8 @@ using System.Globalization;
 using RPNStreamControl.Wpf.ViewModels;
 using RPNStreamControl.Wpf.Models;
 using RPNStreamControl.Wpf.Views;
+using Windows.ApplicationModel;
+using Windows.System;
 
 namespace RPNStreamControl.Wpf
 {
@@ -66,6 +68,7 @@ namespace RPNStreamControl.Wpf
 
 		private void MainWindow_Loaded(object sender, RoutedEventArgs e)
 		{
+
 			// Create .txt files to be read by XSplit/OBS
 			CreateTxtFilesAsync();
 
@@ -227,5 +230,29 @@ namespace RPNStreamControl.Wpf
 		{
 			_deviceInfoWindow.Show();
         }
-    }
+
+		private void version_Loaded(object sender, RoutedEventArgs e)
+		{
+			version.Content = GetAppVersion();
+		}
+
+		private object GetAppVersion()
+		{
+			Package package = Package.Current;
+			PackageId packageId = package.Id;
+			PackageVersion version = packageId.Version;
+
+			return string.Format("{0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision);
+		}
+
+		private void Hyperlink_Click(object sender, RoutedEventArgs e)
+		{
+			(sender as Hyperlink).RequestNavigate += MainWindow_RequestNavigate;
+		}
+
+		private async void MainWindow_RequestNavigate(object sender, RequestNavigateEventArgs e)
+		{
+			await Launcher.LaunchUriAsync(e.Uri);
+		}
+	}
 }
