@@ -8,5 +8,9 @@ A WPF app to *standardize* RPN stream layout with built-in title, subtitle (anch
 
 ### To-do
 * Improve ticker (marquee)
+* Fontface options
+* Social media icons
+* App download QR
+* Live "bug" toggle
 
 
