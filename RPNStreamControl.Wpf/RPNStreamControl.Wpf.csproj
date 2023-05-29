@@ -33,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Cloud101.SpeedTest" Version="1.0.1" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
     <PackageReference Include="FluentIcons.WPF" Version="1.1.202" />
     <PackageReference Include="Hardware.Info" Version="11.1.0" />

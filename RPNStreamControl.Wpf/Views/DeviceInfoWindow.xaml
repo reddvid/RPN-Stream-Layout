@@ -21,7 +21,8 @@
 		<TextBox
 			x:Name="main"
 			Margin="12"
-			IsReadOnly="True" />
+			IsReadOnly="True"
+			TextWrapping="WrapWithOverflow" />
 		<StackPanel
 			Grid.Row="1"
 			Margin="12,8,12,12"
