@@ -7,7 +7,7 @@
 	xmlns:local="clr-namespace:RPNStreamControl.Wpf"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:ui="http://schemas.modernwpf.com/2019"
-	Title="Stream Editor by Red David"
+	Title="RPN Stream Layout"
 	Width="600"
 	Height="450"
 	ui:WindowHelper.UseModernWindowStyle="True"
@@ -125,7 +125,14 @@
 		</Grid>
 
 		<StatusBar Grid.Row="1" Grid.ColumnSpan="3">
-			<StatusBarItem Content="version info" />
+			<StatusBarItem x:Name="version">
+				<StatusBarItem.Content>
+					<TextBlock>
+						<Run Text="version 1.1 by" />
+						<Hyperlink NavigateUri="https://reddavid.me/" Click="Hyperlink_Click" TextDecorations="None">Red David</Hyperlink>
+					</TextBlock>
+				</StatusBarItem.Content>
+			</StatusBarItem>
 			<StatusBarItem HorizontalAlignment="Right">
 				<Button Click="DeviceInfoShow_Clicked">
 					<Button.Content>
