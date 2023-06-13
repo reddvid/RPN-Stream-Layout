@@ -196,9 +196,57 @@
 					</TextBlock>
 				</Grid>
 
+				<!--  LIVE GRID  -->
+				<Grid
+					Width="100"
+					MaxWidth="120"
+					Margin="12,0,40,-34"
+					HorizontalAlignment="Left"
+					VerticalAlignment="Center"
+					RenderTransformOrigin="0.5,0.5"
+					Visibility="{Binding IsLive, Mode=OneWay}">
+					<Grid.RenderTransform>
+						<TranslateTransform x:Name="translateLiverGrid" />
+					</Grid.RenderTransform>
+					<Grid.Triggers>
+						<EventTrigger RoutedEvent="Binding.TargetUpdated">
+							<BeginStoryboard>
+								<Storyboard>
+									<DoubleAnimation
+										Storyboard.TargetName="translateLiverGrid"
+										Storyboard.TargetProperty="X"
+										From="-550"
+										To="0"
+										Duration="0:0:0.300">
+										<DoubleAnimation.EasingFunction>
+											<CubicEase EasingMode="EaseInOut" />
+										</DoubleAnimation.EasingFunction>
+									</DoubleAnimation>
+								</Storyboard>
+							</BeginStoryboard>
+						</EventTrigger>
+					</Grid.Triggers>
+					<Rectangle Fill="#B20000">
+						<Rectangle.RenderTransform>
+							<SkewTransform AngleX="24" />
+						</Rectangle.RenderTransform>
+					</Rectangle>
+					<TextBlock
+						Margin="44,4,24,4"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						FontFamily="Arial"
+						FontSize="14"
+						FontWeight="Bold"
+						Foreground="White"
+						Text="LIVE"
+						TextAlignment="Center" />
+				</Grid>
+
 				<!--  ANCHOR GRID  -->
 				<Grid
 					MinWidth="220"
+					MaxWidth="320"
 					Margin="0,0,40,-34"
 					HorizontalAlignment="Right"
 					VerticalAlignment="Center"

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Threading;
 
 namespace RPNStreamControl.Wpf.ViewModels
@@ -36,6 +37,15 @@ namespace RPNStreamControl.Wpf.ViewModels
 		{
 			get => _dateTimeTitle;
 			set => SetProperty(ref _dateTimeTitle, value);
+		}
+
+
+		private Visibility _isLive;
+
+		public Visibility IsLive
+		{
+			get => _isLive;
+			set => SetProperty(ref _isLive, value);
 		}
 
 
