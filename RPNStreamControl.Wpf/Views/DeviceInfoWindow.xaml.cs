@@ -47,7 +47,8 @@ namespace RPNStreamControl.Wpf.Views
 
 		private async Task RefreshDetailsAsync()
 		{
-			Title += " " + new System.Net.WebClient().DownloadString("https://api.ipify.org");
+			var publicIP = new System.Net.WebClient().DownloadString("https://api.ipify.org");
+			Title += $" {publicIP}";
 
 			loading.IsActive = true;
 			loading.Visibility = Visibility.Visible;
@@ -67,16 +68,17 @@ namespace RPNStreamControl.Wpf.Views
 			await task.ContinueWith(t =>
 			{
 				var details = new List<DeviceDetials>
-			{
-				new DeviceDetials("CPU", hardwareInfo.CpuList.FirstOrDefault()!.Name),
-				new DeviceDetials("Motherboard", hardwareInfo.MotherboardList.FirstOrDefault()!.Product),
-				new DeviceDetials("BIOS", GetBios(hardwareInfo.BiosList)),
-				new DeviceDetials("Memory", GetMemory(hardwareInfo.MemoryList)),
-				new DeviceDetials("Storage", GetStorage(hardwareInfo.DriveList)),
-				new DeviceDetials("Video", GetGpu(hardwareInfo.VideoControllerList)),
-				new DeviceDetials("OS", $"{hardwareInfo.OperatingSystem.Name} {hardwareInfo.OperatingSystem.Version}"),
-				new DeviceDetials($"Speed test {DateTime.Now.ToString("f")}", GetSpeedTest())
-			};
+				{
+					new DeviceDetials("Public IP", publicIP),
+					new DeviceDetials("CPU", hardwareInfo.CpuList.FirstOrDefault()!.Name),
+					new DeviceDetials("Motherboard", hardwareInfo.MotherboardList.FirstOrDefault()!.Product),
+					new DeviceDetials("BIOS", GetBios(hardwareInfo.BiosList)),
+					new DeviceDetials("Memory", GetMemory(hardwareInfo.MemoryList)),
+					new DeviceDetials("Storage", GetStorage(hardwareInfo.DriveList)),
+					new DeviceDetials("Video", GetGpu(hardwareInfo.VideoControllerList)),
+					new DeviceDetials("OS", $"{hardwareInfo.OperatingSystem.Name} {hardwareInfo.OperatingSystem.Version}"),
+					new DeviceDetials($"Speed test {DateTime.Now.ToString("f")}", GetSpeedTest())
+				};
 
 				ShowData(details);
 			});
@@ -91,7 +93,7 @@ namespace RPNStreamControl.Wpf.Views
 			var download = speedTestClient.TestDownloadSpeed(server);
 			var upload = speedTestClient.TestUploadSpeed(server);
 
-			return $"{server.Host} {server.Name}, {server.Country} {latency}ms {download / 1000, 0:N2}Mbps {upload / 1000, 0:N2}Mbps";
+			return $"{server.Host} {server.Name}, {server.Country} {latency}ms {download / 1000,0:N2}Mbps {upload / 1000,0:N2}Mbps";
 		}
 
 		private string GetBios(List<BIOS> biosList)
